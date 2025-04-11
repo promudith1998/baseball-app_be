@@ -26,4 +26,10 @@ export class AuthController {
   getProfile(@Request() req) {
     return req.user;
   }
+
+  @UseGuards(AuthGuard)
+  @Get('all-auths')
+  getAllAuth() {
+    return this.authService.getAllAuth();
+  }
 }

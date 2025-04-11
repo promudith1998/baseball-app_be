@@ -24,4 +24,8 @@ export class AuthService {
       accessToken: await this.jwtService.signAsync(payload),
     };
   }
+
+  async getAllAuth(): Promise<any[]> {
+    return this.usersService.getAllAuth(); // call the method from UsersService
+  }
 }

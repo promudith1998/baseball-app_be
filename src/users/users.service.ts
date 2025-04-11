@@ -39,4 +39,11 @@ export class UsersService {
 
     return result.length > 0 ? result[0] : undefined;
   }
+
+  async getAllAuth(): Promise<any[]> {
+    const result = await this.dataSource.query(
+      'SELECT * FROM "UserAuthorizationTree"',
+    );
+    return result;
+  }
 }
