@@ -1,28 +1,3 @@
-// import { Injectable } from '@nestjs/common';
-
-// export type User = any;
-
-// @Injectable()
-// export class UsersService {
-//   private readonly users = [
-//     {
-//       userId: 1,
-//       username: 'john',
-//       password: 'changeme',
-//     },
-//     {
-//       userId: 2,
-//       username: 'maria',
-//       password: 'guess',
-//     },
-//   ];
-
-//   async findOne(username: string): Promise<User | undefined> {
-//     console.log(username);
-
-//     return this.users.find((user) => user.username === username);
-//   }
-// }
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
@@ -45,5 +20,24 @@ export class UsersService {
       'SELECT * FROM "UserAuthorizationTree"',
     );
     return result;
+  }
+
+  async createOrUpdateUser(
+    createdByUser: number,
+    newUser: number,
+    header: object,
+    line: object,
+  ): Promise<void> {
+    console.log('ada', createdByUser, newUser, header, line);
+
+    const query = `
+      CALL public."UserMSP"($1, $2, $3::jsonb, $4::jsonb)
+    `;
+    await this.dataSource.query(query, [
+      createdByUser,
+      newUser,
+      JSON.stringify(header),
+      JSON.stringify(line),
+    ]);
   }
 }

@@ -32,4 +32,17 @@ export class AuthController {
   getAllAuth() {
     return this.authService.getAllAuth();
   }
+
+  @UseGuards(AuthGuard)
+  @Post('save-user')
+  async saveUser(@Body() body: any): Promise<string> {
+    const { createdByUser, newUser, header, line } = body;
+
+    return await this.authService.createOrUpdateUser(
+      createdByUser,
+      newUser,
+      header,
+      line,
+    );
+  }
 }

@@ -28,4 +28,18 @@ export class AuthService {
   async getAllAuth(): Promise<any[]> {
     return this.usersService.getAllAuth(); // call the method from UsersService
   }
+  async createOrUpdateUser(
+    createdByUser: number,
+    newUser: number,
+    header: object,
+    line: object,
+  ): Promise<string> {
+    await this.usersService.createOrUpdateUser(
+      createdByUser,
+      newUser,
+      header,
+      line,
+    );
+    return 'User created or updated successfully';
+  }
 }
