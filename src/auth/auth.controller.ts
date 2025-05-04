@@ -34,6 +34,12 @@ export class AuthController {
   }
 
   @UseGuards(AuthGuard)
+  @Get('all-users')
+  getAllUsers() {
+    return this.authService.getAllUsers();
+  }
+
+  @UseGuards(AuthGuard)
   @Post('save-user')
   async saveUser(@Body() body: any): Promise<string> {
     const { createdByUser, newUser, header, line } = body;
@@ -44,5 +50,13 @@ export class AuthController {
       header,
       line,
     );
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('save-team')
+  async saveTeam(@Body() body: any): Promise<string> {
+    const { header, line } = body;
+
+    return await this.authService.createOrUpdateTeam(header, line);
   }
 }

@@ -22,6 +22,11 @@ export class UsersService {
     return result;
   }
 
+  async getAllUsers(): Promise<any[]> {
+    const result = await this.dataSource.query('SELECT * FROM public."User"');
+    return result;
+  }
+
   async createOrUpdateUser(
     createdByUser: number,
     newUser: number,

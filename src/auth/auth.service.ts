@@ -1,11 +1,13 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
+import { TeamService } from '../team/team.service';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
+    private teamService: TeamService,
     private jwtService: JwtService,
   ) {}
 
@@ -28,6 +30,11 @@ export class AuthService {
   async getAllAuth(): Promise<any[]> {
     return this.usersService.getAllAuth(); // call the method from UsersService
   }
+
+  async getAllUsers(): Promise<any[]> {
+    return this.usersService.getAllUsers(); // call the method from UsersService
+  }
+
   async createOrUpdateUser(
     createdByUser: number,
     newUser: number,
@@ -40,6 +47,11 @@ export class AuthService {
       header,
       line,
     );
+    return 'User created or updated successfully';
+  }
+
+  async createOrUpdateTeam(header: object, line: object): Promise<string> {
+    await this.teamService.createOrUpdateTeam(header, line);
     return 'User created or updated successfully';
   }
 }
