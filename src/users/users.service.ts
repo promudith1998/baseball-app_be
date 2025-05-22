@@ -7,8 +7,10 @@ export class UsersService {
   constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
 
   async findOne(username: string): Promise<any | undefined> {
+    console.log("asfa");
+    
     const result = await this.dataSource.query(
-      'SELECT AutoID userId,username ,"Password1" FROM "User" WHERE username = $1 LIMIT 1',
+      'SELECT "AutoID" userId,username ,"Password1" FROM "User" WHERE username = $1 LIMIT 1',
       [username],
     );
 
